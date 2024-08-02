@@ -23,7 +23,6 @@ app.use(cors({
 }))
 
 app.post('/register', async (req, res) => {
-    console.log(req.body)
 
     mailOptions.text = JSON.stringify(req.body);
 
@@ -50,8 +49,8 @@ async function sendEmail(data) {
     const confirmationMailOptions = {
         from: process.env.EMAIL_FROM,
         to: data.email,
-        subject: data.locale = 'fr-Fr' ? getFrenchSubject() : getGermanSubject(),
-        text: data.locale = 'fr-Fr' ? getFrenchText(data) : getGermanText(data)
+        subject: data.locale === 'de-DE' ? getGermanSubject() : getFrenchSubject(),
+        text: data.locale === 'de-DE' ? getGermanText(data) : getFrenchText(data)
     };
 
     return new Promise((resolve, reject) => {
